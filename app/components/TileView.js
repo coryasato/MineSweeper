@@ -43,8 +43,8 @@ var TileView = React.createClass({
       'emptyTile': this.props.isEmpty,
       'nearbyBombs': this.props.nearbyBombs,
       'visited': this.props.visited,
-      'show-bomb': this.props.showBomb,
-      'hasFlag': this.props.hasFlag
+      'show-bomb fa fa-bomb fa-2x': this.props.showBomb,
+      'hasFlag fa fa-flag-o fa-2x': this.props.hasFlag
     });
 
     return (

@@ -1,6 +1,7 @@
 var express     = require('express'),
     path        = require('path'),
-    bodyParser  = require('body-parser');
+    bodyParser  = require('body-parser'),
+    cors        = require('express-cors');
 
 var app = express();
 // JSX transpiler
@@ -16,6 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(cors({
+  allowedOrigins: ['http://fonts.googleapis.com']
+}));
 
 /**
  * Routes

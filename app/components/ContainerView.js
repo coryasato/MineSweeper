@@ -120,7 +120,7 @@ module.exports = React.createClass({
     var settings = this.state.settings;
 
     // Prevent flagging tiles that have been flipped.
-    if(tile.visited) {
+    if(tile.visited || this.state.gameOver) {
       return false;
     }
 
@@ -197,26 +197,33 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div className="container-fluid">
+      <div className="container main-container">
         <div className="row">
+          <div className="col-md-4">
 
-          <Dashboard onRestartButton={this.onRestartButtonClick}
-                     clock={this.state.clock}
-                     flags={this.state.flags}
-                     updateClock={this.updateClock} 
-                     gameHasStarted={this.state.gameHasStarted} />
+            <Dashboard onRestartButton={this.onRestartButtonClick}
+                       clock={this.state.clock}
+                       flags={this.state.flags}
+                       updateClock={this.updateClock} 
+                       gameHasStarted={this.state.gameHasStarted} />
 
-          <div className="col-xs-8" id="gameContainer">
+          
+
+            <ScoreBoard scoreboard={this.state.scoreboard} 
+                        player={this.state.player} 
+                        setPlayer={this.setPlayerName} />
+
+          </div>
+        
+          <div className="col-md-8">
+
             <BoardView settings={this.state.settings} 
                        board={this.state.board.board} 
                        gameOver={this.state.gameOver}
                        onTileClick={this.onTileClick} 
                        onRightClick={this.onRightClick} />
-          </div>
 
-          <ScoreBoard scoreboard={this.state.scoreboard} 
-                      player={this.state.player} 
-                      setPlayer={this.setPlayerName} />
+          </div>
 
         </div>
       </div>

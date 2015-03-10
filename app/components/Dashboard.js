@@ -8,7 +8,7 @@ var Dashboard = React.createClass({
 
   render: function() {
     return (
-      <div className="text-center col-xs-2 jumbotron">
+      <div className="text-center">
         <Clock clock={this.props.clock} 
                updateClock={this.props.updateClock} 
                gameHasStarted={this.props.gameHasStarted} />

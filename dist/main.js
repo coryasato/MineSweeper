@@ -247,8 +247,10 @@ var BoardView = React.createClass({displayName: "BoardView",
     }.bind(this));
 
     return (
-      React.createElement("div", {className: "gameBoard jumbotron"}, 
-        gameBoard
+      React.createElement("div", {className: ""}, 
+        React.createElement("div", {className: "center-block gameBoard"}, 
+          gameBoard
+        )
       )
     );
   }
@@ -380,7 +382,7 @@ module.exports = React.createClass({displayName: "exports",
     var settings = this.state.settings;
 
     // Prevent flagging tiles that have been flipped.
-    if(tile.visited) {
+    if(tile.visited || this.state.gameOver) {
       return false;
     }
 
@@ -457,26 +459,33 @@ module.exports = React.createClass({displayName: "exports",
 
   render: function() {
     return (
-      React.createElement("div", {className: "container-fluid"}, 
+      React.createElement("div", {className: "container main-container"}, 
         React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-md-4"}, 
 
-          React.createElement(Dashboard, {onRestartButton: this.onRestartButtonClick, 
-                     clock: this.state.clock, 
-                     flags: this.state.flags, 
-                     updateClock: this.updateClock, 
-                     gameHasStarted: this.state.gameHasStarted}), 
+            React.createElement(Dashboard, {onRestartButton: this.onRestartButtonClick, 
+                       clock: this.state.clock, 
+                       flags: this.state.flags, 
+                       updateClock: this.updateClock, 
+                       gameHasStarted: this.state.gameHasStarted}), 
 
-          React.createElement("div", {className: "col-xs-8", id: "gameContainer"}, 
+          
+
+            React.createElement(ScoreBoard, {scoreboard: this.state.scoreboard, 
+                        player: this.state.player, 
+                        setPlayer: this.setPlayerName})
+
+          ), 
+        
+          React.createElement("div", {className: "col-md-8"}, 
+
             React.createElement(BoardView, {settings: this.state.settings, 
                        board: this.state.board.board, 
                        gameOver: this.state.gameOver, 
                        onTileClick: this.onTileClick, 
                        onRightClick: this.onRightClick})
-          ), 
 
-          React.createElement(ScoreBoard, {scoreboard: this.state.scoreboard, 
-                      player: this.state.player, 
-                      setPlayer: this.setPlayerName})
+          )
 
         )
       )
@@ -497,7 +506,7 @@ var Dashboard = React.createClass({displayName: "Dashboard",
 
   render: function() {
     return (
-      React.createElement("div", {className: "text-center col-xs-2 jumbotron"}, 
+      React.createElement("div", {className: "text-center"}, 
         React.createElement(Clock, {clock: this.props.clock, 
                updateClock: this.props.updateClock, 
                gameHasStarted: this.props.gameHasStarted}), 
@@ -573,7 +582,7 @@ var Clock = React.createClass({displayName: "Clock",
 
   render: function() {
     return (
-      React.createElement("div", {className: "clock", id: "clock"}, this.props.clock)
+      React.createElement("div", {className: "clock"}, this.props.clock)
     );
   }
 
@@ -665,9 +674,11 @@ var Flags = React.createClass({displayName: "Flags",
 
   render: function() {
     return (
-      React.createElement("div", null, 
-        React.createElement("div", {className: "flags", id: "flags"}, this.props.flags), 
-        React.createElement("small", null, "(Right click to plant flags)")
+      React.createElement("div", {className: "flag-wrapper z-1"}, 
+        React.createElement("div", {className: "flags aqua"}, this.props.flags, 
+          React.createElement("span", {className: "darkgray"}, "Flags")
+        ), 
+        React.createElement("small", {className: "darkgray"}, "(Right click to plant flags)")
       )
     );
   }
@@ -688,35 +699,53 @@ var ScoreBoard = React.createClass({displayName: "ScoreBoard",
 
   handleInput: function(e) {
     e.preventDefault();
-    if(e.which === 13) {
+    if(e.which === 13 && e.target.value.length >= 2 && e.target.value.length <= 10 && !this.noXSS(e.target.value)) {
       this.props.setPlayer(e.target.value);
+    } else {
+      return false;
+    }
+  },
+
+  noXSS: function(string) {
+    if(string[0] === '<' && string.substring(string.length-2) === '>;') {
+      return true;
+    } else {
+      return false;
     }
   },
 
   render: function() {
     var scores = this.props.scoreboard.map(function(score, index) {
       return React.createElement("li", {className: "score", key: index}, 
-                React.createElement("span", null, score.name), 
-                React.createElement("span", null, score.time)
+                React.createElement("span", null, index+1, " )"), 
+                React.createElement("span", {className: "left-spacer"}, "Player:",  
+                  React.createElement("span", {className: "aqua"}, score.name)
+                ), 
+                React.createElement("span", {className: "left-spacer"}, "Time:", 
+                  React.createElement("span", {className: "aqua"}, score.time)
+                )
              );
     });
 
-    var playerNameInput = React.createElement("input", {type: "text", 
-                                 placeholder: "Enter Your Name", 
+    var playerNameInput = React.createElement("input", {className: "center-block", 
+                                 type: "text", 
+                                 placeholder: "Enter name of 2-10 Chars", 
                                  ref: "userInput", 
-                                 onKeyUp: this.handleInput});
+                                 onKeyUp: this.handleInput, 
+                                 maxLength: "10", 
+                                 minLength: "2"});
     var playerNameSalute = React.createElement("h4", {className: "text-center"}, 
-                               "Howdy ", this.props.player, "!"
+                               "Howdy, ", this.props.player, "!"
                            );
 
     return (
-      React.createElement("div", {className: "col-xs-2 scoreboard jumbotron"}, 
+      React.createElement("div", {className: "scoreboard"}, 
 
-        React.createElement("h3", null, "Claim To Fame"), 
+        React.createElement("h2", {className: "text-center"}, React.createElement("u", null, "Claim To Fame")), 
 
         this.props.player !== 'Butters' ? playerNameSalute : playerNameInput, 
 
-        React.createElement("ul", null, scores)
+        React.createElement("ul", {className: "scores"}, scores)
 
       )
     );
@@ -803,8 +832,8 @@ var TileView = React.createClass({displayName: "TileView",
       'emptyTile': this.props.isEmpty,
       'nearbyBombs': this.props.nearbyBombs,
       'visited': this.props.visited,
-      'show-bomb': this.props.showBomb,
-      'hasFlag': this.props.hasFlag
+      'show-bomb fa fa-bomb fa-2x': this.props.showBomb,
+      'hasFlag fa fa-flag-o fa-2x': this.props.hasFlag
     });
 
     return (

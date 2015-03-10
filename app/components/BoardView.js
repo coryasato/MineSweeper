@@ -14,8 +14,10 @@ var BoardView = React.createClass({
     }.bind(this));
 
     return (
-      <div className="gameBoard jumbotron">
-        {gameBoard}
+      <div className="">
+        <div className="center-block gameBoard">
+          {gameBoard}
+        </div>
       </div>
     );
   }

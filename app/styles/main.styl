@@ -1,0 +1,145 @@
+@import '../../node_modules/font-awesome-stylus/stylus/index.styl'
+
+/** Variables **/
+
+gameFont = Monoton,'Lucida Console', Tahoma, Arial;
+aqua = #009587;
+
+
+/** Globals **/
+
+body {
+  margin: 0 auto;
+  background-color: #999;
+}
+
+.col-center-block {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aqua {
+  color: aqua;
+}
+
+.darkgray {
+  color: #333;
+}
+
+.left-spacer {
+  padding-left: 3%;
+}
+
+/*** GameBoard  ***/
+
+.main-container {
+  padding-top: 5rem;
+}
+
+.tile {
+  color: white;
+  height: 30px;
+  width: 30px;
+  background-color: steelblue;
+  border: 1px solid white;
+  float: left;
+}
+
+.gameBoard {
+  position: absolute;
+  padding: 4%;
+  border: 10px solid #777;
+  background-color: white;
+}
+
+.rowWrapper {
+  width: 100%;
+  height: 30px;
+  clear: both;
+}
+
+// .bomb {
+//   background-color: orange;
+// }
+
+.visited {
+  background-color: lightblue;
+}
+
+.show-bomb {
+  background-color: #FF6347;
+}
+
+.fa-flag-o {
+  color: orange;
+}
+
+.fa-bomb {
+  color: #333;
+}
+
+/*** DashBoard  ***/
+
+.clock {
+  font-family: gameFont;
+  color: white;
+  font-size: 5rem;
+}
+
+.rules {
+ margin-top: 3%;
+ margin-left: 25%;
+ margin-right: 25%;
+ padding: 3%;
+ border: 2px solid white;
+ border-radius: 5px;
+}
+
+.radio {
+  font-family: gameFont;
+  @extend .darkgray;
+  font-size: 2rem;
+  label .circle {
+    border: 2px solid white;
+  }
+}
+
+.flag-wrapper {
+  padding: 3%;
+  margin-top: 5%;
+  border: 2px solid white;
+  border-radius: 100px;
+  color: white;
+}
+
+.flags {
+  font-family: gameFont;
+  font-size: 3rem;
+}
+
+/** ScoreBoard **/
+
+.scoreboard {
+  margin-top: 5%;
+  padding: 3%;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: #555;
+  font-family: gameFont;
+  h2 {
+    padding-bottom: 2%;
+    font-family: gameFont;
+    color: aqua;
+  }
+  h4 {
+    font-family: gameFont;
+  }
+}
+
+.scores {
+  padding: 5%;
+  list-style-type: none;
+}
+

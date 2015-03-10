@@ -57,7 +57,7 @@ var Clock = React.createClass({
 
   render: function() {
     return (
-      <div className="clock" id="clock">{this.props.clock}</div>
+      <div className="clock">{this.props.clock}</div>
     );
   }
 
@@ -149,9 +149,11 @@ var Flags = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className="flags" id="flags">{this.props.flags}</div>
-        <small>(Right click to plant flags)</small>
+      <div className="flag-wrapper z-1">
+        <div className="flags aqua">{this.props.flags} 
+          <span className="darkgray">Flags</span>
+        </div>
+        <small className="darkgray">(Right click to plant flags)</small>
       </div>
     );
   }
