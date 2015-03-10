@@ -9,14 +9,13 @@ var _ = require('lodash');
 var Clock = React.createClass({
 
   startClock: function() {
-    console.log('START!');
+    //console.log('START!');
     this.interval = setInterval(this.updateClock, 1000);
   },
 
   stopClock: function() {
-    console.log('STOP!');
+    //console.log('STOP!');
     clearInterval(this.interval);
-    console.log(this.props.clock);
   },
 
   componentWillUpdate: function(nextProps) {
