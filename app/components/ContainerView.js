@@ -3,7 +3,6 @@
 var React     = require('react');
 var _         = require('lodash');
 var Board     = require('../Board');
-var Clock     = require('../Clock');
 var BoardView = require('./BoardView');
 var Dashboard = require('./Dashboard');
 var ScoreBoard = require('./ScoreBoard');
@@ -206,8 +205,6 @@ module.exports = React.createClass({
                        flags={this.state.flags}
                        updateClock={this.updateClock} 
                        gameHasStarted={this.state.gameHasStarted} />
-
-          
 
             <ScoreBoard scoreboard={this.state.scoreboard} 
                         player={this.state.player} 

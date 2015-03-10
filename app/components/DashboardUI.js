@@ -149,7 +149,7 @@ var Flags = React.createClass({
 
   render: function() {
     return (
-      <div className="flag-wrapper z-1">
+      <div className="flag-wrapper">
         <div className="flags aqua">{this.props.flags} 
           <span className="darkgray">Flags</span>
         </div>
