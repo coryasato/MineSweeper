@@ -33,17 +33,18 @@ describe('Clock', function() {
     done();
   });
 
-  it('displays "00:00" on initial render', function(){
+  it('should display "00:00" on initial render', function(){
     time = TestUtils.findRenderedDOMComponentWithClass(testClock, 'clock');
     expect(time.props.children).to.equal('00:00');
   });
 
-  it('updates time when gameHasStarted is true', function(done) {
+  it('should update time when gameHasStarted is true', function(done) {
     time = TestUtils.findRenderedDOMComponentWithClass(testClock, 'clock');
 
     expect(time.props.children).to.equal('00:00');
     expect(testClock.props.gameHasStarted).to.be.false;
 
+    // Calls componentWillUpdate which calls startClock.
     testClock.setProps({gameHasStarted: true});
 
     setTimeout(function() {
