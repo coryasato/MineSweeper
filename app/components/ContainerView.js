@@ -2,7 +2,7 @@
 
 var React     = require('react');
 var _         = require('lodash');
-var Board     = require('../Board');
+var Board     = require('../models/Board');
 var BoardView = require('./BoardView');
 var Dashboard = require('./Dashboard');
 var ScoreBoard = require('./ScoreBoard');

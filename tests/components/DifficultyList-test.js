@@ -55,10 +55,10 @@ describe('DifficultyList', function() {
 
   it('should get difficulty by checked value', function() {
     var oldCheckedRadio = getCheckedRadio(radios);
-    oldCheckedRadio.props.checked = false;
     var savvyRadio = getRadioByValue(radios, 'savvy');
     var proRadio = getRadioByValue(radios, 'pro');
     
+    oldCheckedRadio.props.checked = false;
     savvyRadio.props.checked = true;
     checkedRadio = getCheckedRadio(radios);
 
