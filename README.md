@@ -1,5 +1,5 @@
 # Minesweeper
-##Play the game @ [MineSweeper](minesweeper.coryasato.com)
+##Play the game @ [MineSweeper](http://minesweeper.coryasato.com)
 
 <br />
 ***
